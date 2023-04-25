@@ -1,0 +1,11 @@
+profiling:
+
+Zdaním určený profiler gprof mal isté problémy s nami používanými knižnicami a pri niektorých typoch spustenia nedokázal vyhodnotiť čas, ktorý program strávil v jednotlivých funkciach. Napriek tomu sme istými úpravami zistili že program trávi najviac času vo funkcií DrwAll a to z pochopiteľných dôvodov, keďže tu znova vykresľuje všetkz grafické elementy kaukulačky.
+
+Prikladám tiež  prílohy:
+ - profiling1.jpg (zobrazujúci priebeh gprof pri spustení programu bez argumentu a používaného na výpočty jednoduchých príkladov)
+ - profiling2.jpg (zobrazujúci priebeh gprof pri spustení programu na výpočet pomocou make profile)
+
+ Za použitia vhodnejšieho profileru alebo vhodnejších knižníc by sme mohli dostať presnejšie výsledky a zlepšiť takto efektivitu nášho programu.
+
+ Vykonanie profilingu je možné pomocou príkazu make profile
