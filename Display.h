@@ -11,17 +11,23 @@
  *  @bug Dosud nejsou zname zadne chyby
  */
 #ifndef _DISPLAY_H_
-#define _DISPLAY_H_
+#define _DISPLAY_H_ //makro pro Display.h
 #include<string>
 #include<SFML/Graphics.hpp>
 #include<iostream>
 
-
+/** @brief Trida Display
+* Nachazi se zde konstruktory displaye
+* Zaroven jsou zde veskere potrebne funkce pro praci s displayem
+* napriklad pro nastaveni textury, nebo zobrazeni textu
+* Samotny display se chova jako obycejny sf::Shape
+* na ktery se vypisuje text. Tez se jedna o obycejny sf::Text
+*/
 class Display
 {
 public:
 	Display(); //zakladni konstruktor
-	~Display();
+	~Display(); //destruktor displaye
 
 	/**@brief Konstruktor displaye
 	*
