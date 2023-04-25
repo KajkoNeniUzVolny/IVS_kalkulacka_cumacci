@@ -5,6 +5,7 @@
 #include<vector>
 #include<string>
 #include<sstream>
+#include<string.h>
 #include"Namespaces.h"
 
 #define BUTTONCOUNT 24
@@ -22,9 +23,11 @@ using std::endl;
 
 bool CallOnce = true;
 
+bool Profiler = false;
+
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
-char Buttonchars[BUTTONCOUNT] = { 'C', '<', '!', 's', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
+char Buttonchars[BUTTONCOUNT] = { 'C', '<', '!', 's', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '=' };
 const Color MouseOnButtonColour = Color(110, 110, 110, 50);
 RectangleShape HoverShape;
 
@@ -123,17 +126,23 @@ void DisplayALL()
 	window.draw(PreviousText);
 }
 
-void update(char* argv[])
+void update(const char argument[] = "")
 {
+	size_t i;
+
+	bool HoveredPositiv = false;
 	if (CallOnce)
 	{
 		CallOnce = false;
-		CurrentTask = *argv;
+		CurrentTask = argument;
 		TextOnDisplay.setString(CurrentTask);
+		if (argument[strlen(argument) - 1] == '=')
+		{
+			goto label;
+		}
 	}
-	bool HoveredPositiv = false;
 
-	for (size_t i = 0; i < Buttons.size(); i++)
+	for (i = 0; i < Buttons.size(); i++)
 	{
 		if (Buttons[i].getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
 		{
@@ -157,7 +166,8 @@ void update(char* argv[])
 				char c = a + '0';
 				CurrentTask.push_back(c);
 				TextOnDisplay.setString(CurrentTask);
-			}else if (Keyboard::isKeyPressed(Keyboard::Num2) && !MouseHeld)
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num2) && !MouseHeld)
 			{
 				MouseHeld = true;
 				int a = 2;
@@ -165,7 +175,7 @@ void update(char* argv[])
 				CurrentTask.push_back(c);
 				TextOnDisplay.setString(CurrentTask);
 			}
-			else if(Keyboard::isKeyPressed(Keyboard::Num3) && !MouseHeld)
+			else if (Keyboard::isKeyPressed(Keyboard::Num3) && !MouseHeld)
 			{
 				MouseHeld = true;
 				int a = 3;
@@ -183,7 +193,7 @@ void update(char* argv[])
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::Num5) && !MouseHeld)
 			{
-				MouseHeld = true; 
+				MouseHeld = true;
 				int a = 5;
 				char c = a + '0';
 				CurrentTask.push_back(c);
@@ -246,12 +256,19 @@ void update(char* argv[])
 				}
 				else if (Buttonchars[i] == '=')
 				{
+				label:
 					PrevTask = CurrentTask;
 
-					double result =mathematic::StringToCount(CurrentTask);
+					double result = mathematic::StringToCount(CurrentTask);
 
 					if (mathematic::isInteger(result)) CurrentTask = std::to_string(int(result));
 					else CurrentTask = std::to_string(result);
+					if (Profiler)
+					{
+						cout << CurrentTask << endl;
+						window.close();
+						return;
+					}
 				}
 				else
 				{
@@ -296,7 +313,12 @@ void update(char* argv[])
 int main(int argc, char* argv[])
 {
 
-    window.setVerticalSyncEnabled(true);
+	if (argc != 1)
+	{
+		Profiler = true;
+	}
+
+	window.setVerticalSyncEnabled(true);
 	font.loadFromFile("FontCalculator.ttf");
 
 	FirstSetUp();
@@ -323,24 +345,23 @@ int main(int argc, char* argv[])
 			}
 		}
 
-#ifndef _PROFILER_
-		update(&argv[1]);
-#else
-		char argv = "";
-		update(&argv);
-#endif // !_PROFILER_
+		if (Profiler)
+		{
+			update(argv[1]);
+		}
+		else
+		{
+			update();
+		}
+		
 
-
-		window.clear(Color(45,45,45));
+		window.clear(Color(45, 45, 45));
 
 		DisplayALL();
 
 		window.display();
 	}
 
-#ifndef _PROFILER_
-	pause;
-#endif // !_PROFILER_
 
-    return 0;
+	return 0;
 }
