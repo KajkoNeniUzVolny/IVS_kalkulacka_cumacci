@@ -15,16 +15,16 @@ objs := $(srcs:.cpp=.o)
 deps := $(srcs:.cpp=.d)
 
 $(exec): $(objs)
-	$(CXX) -o $@ $+ -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) -o $@ $+ -lsfml-graphics -lsfml-window -lsfml-system -pg
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $< 
-	$(CXX) $(CXXFLAGS) -MF $(patsubst %.o,%.d,$@) -M $< 
+	$(CXX) $(CXXFLAGS) -c -o $@ $< -pg
+	$(CXX) $(CXXFLAGS) -MF $(patsubst %.o,%.d,$@) -M $< -pg
 	
 -include $(wildcard *.d)
 
 clean:
-	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip
+	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out
 
 run: all
 	./$(exec)
@@ -42,5 +42,5 @@ help:
 
 profile: all
 	./profiler < inputs.txt
-	gprof $(exec)
+	gprof ./$(exec) -p -a -b gmon.out 
 
