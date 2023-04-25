@@ -203,7 +203,6 @@ namespace mathematic {
 						break;
 					}
 			}
-
 		} while (!Operators.empty());
 		return Numbers[0];
 	}
