@@ -1,3 +1,24 @@
+/**
+* @file Source.cpp
+*
+* @brief
+* @author Tereza Fortelna (xforte03) David Lauer (xlauer00) Pavol Sloboda (xslobo08) Natalie Perkova (xperko00)
+*
+/
+/*********************************************************************************************************************************************************
+* Soubor: Source.cpp
+* Datum:	24.4.2023
+* Autori:	Tereza Fortelna (xforte03)
+*			David Lauer (xlauer00)
+*			Pavol Sloboda (xslobo08)
+*			Natalie Perkova (xperko00)
+* Popis: Kallkulacka ovladajici zakladni matematicke operace
+* 
+*
+*
+* Nazev projektu: kalkulacka_pro_cumacky
+*
+**********************************************************************************************************************************************************/
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include"Button.h"
@@ -43,6 +64,12 @@ bool MouseHeld = false;
 
 Font font;
 
+/*@brief Funkce pro napovedu
+* 
+* Kratky popis moznych akci a funkci kalkulacky
+*
+* @return void
+*/
 void Help() {
 	cout << "-------------HELP--------KALKULACKA-------------" << endl;
 	cout << "KLIKANIM NA TLACITKA ZPOUSTITE JEDNOTLIVE HODNOTY A MATEMATICKE OPERACE" << endl;
@@ -54,7 +81,13 @@ void Help() {
 	cout << "------------------------------------------------" << endl;
 }
 
-//call once
+
+/** @brief Funkce nastavi vzhled kalkulacky
+*
+* Funkce je volana pouze jednou
+* 
+* @return void
+*/
 void FirstSetUp()
 {
 	TextOnDisplay.setCharacterSize(FONT_ON_DISPLAY_SIZE);
@@ -94,6 +127,10 @@ void FirstSetUp()
 	}
 }
 
+/** @brief Funkce realizuje zobrazeni tlacitek
+*
+* @return void
+*/
 void DisplayALL()
 {
 	for (size_t i = 0; i < Buttons.size(); i++)
@@ -126,6 +163,14 @@ void DisplayALL()
 	window.draw(PreviousText);
 }
 
+/** @brief Vizualizuje diplay pri zadavani prikladu
+*
+* Pri kazdem zadani cisla nebo operace, funkce aktualizuje vizualizaci displaye 
+* 
+* @param argument Zadany matematicky priklad
+*
+* @return void
+*/
 void update(const char argument[] = "")
 {
 	size_t i;
@@ -310,6 +355,13 @@ void update(const char argument[] = "")
 	}
 }
 
+/** @brief Hlavni funkce starajici se o spravny chod kalkulacky po jeji ukonceni
+*
+* @param argc Pocet predavanych argumentu
+* @param argv Zadany matematicky priklad 
+*
+* @return 0 pri spravnem pruchodem funkce
+*/
 int main(int argc, char* argv[])
 {
 
@@ -365,3 +417,4 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+/*** Konec souboru Source.cpp ***/

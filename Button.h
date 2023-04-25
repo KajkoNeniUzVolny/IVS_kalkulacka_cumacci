@@ -1,4 +1,3 @@
-#pragma once
 /** @file Button.h
  *  @brief Prototypy funkci pro tlacitka kalkulacky
  *
@@ -10,6 +9,7 @@
  *  @author Pavol Sloboda (xslobo08)
  *  @bug Dosud nejsou zname zadne chyby
  */
+#pragma once
 #ifndef _BUTTON_H_
 #define _BUTTON_H_ //makro pro Button.h
 #include<SFML/Graphics.hpp>
@@ -45,10 +45,12 @@ public:
 	*/
 	Button(std::string Text, sf::Font& Font, sf::Color Color, sf::Color BorderColor, sf::Color TextColor, 
 		sf::Vector2f TextPosition, float BorderThickness, unsigned int SizeOfText);
+	
 	/**
 	* @brief Zakladni konstruktor tlacitka
 	*/
 	Button();
+	
 	/**
 	* @brief Destruktor tlacitka
 	*/
@@ -67,6 +69,7 @@ public:
 	* @return True, kdyz nastala kolize, jinak false
 	*/
 	bool ButtonColision(sf::Vector2i* MousePosition, sf::Color ChangeColor, sf::RenderWindow* window);
+	
 	/** @brief Detekce kolize s tlacitkem
 	*
 	* Detekuje kolizi mezi mysi a tlaciitkem
@@ -77,6 +80,7 @@ public:
 	* @return True, kdyz nastala kolize, jinak false
 	*/
 	bool ButtonColision(sf::Vector2i* MousePosition, sf::RenderWindow* window);
+	
 	/** @brief Vykresleni tlacitka do okna
 	*
 	* @param window Ukazatel na aktualni okno
@@ -92,16 +96,19 @@ public:
 	*  @return Barva tlacitka
 	*/
 	sf::Color GetButtonColour() { return this->ButtonColour; };
+	
 	/** @brief Ziskani shape tlacitka
 	*
 	*  @return Shape tlacitka
 	*/
 	sf::RectangleShape GetButtonShape() { return this->ButtonShape; };
+	
 	/** @brief Ziskani textu na tlacitku
 	*
 	*  @return Text na tlacitku
 	*/
 	sf::Text GetButtonText() { return this->ButtonText; };
+	
 	/** @brief Ziskani velikosti tlacitka
 	*
 	*  @return Velikost tlacitka
@@ -109,14 +116,30 @@ public:
 	sf::Vector2f GetButtonSize() { return this->ButtonSizeDefault; };
 
 private:
-	sf::Color ButtonColour; //Barva tlacitka
-	int SizeDefault; //Zakladni velikost tlacitka
-	sf::RectangleShape ButtonShape; //Shape tlacitka
-	sf::Text ButtonText; //Text na tlacitku
-	sf::Vector2f ButtonSizeDefault; //Zakladni velikost tlacitka pro obe osy
+	/**
+	* @brief Barva tlacitka
+	*/
+	sf::Color ButtonColour;
+	/**
+	* @brief Zakladni velikost tlacitka
+	*/
+	int SizeDefault;
+	/**
+	* @brief Shape tlacitka
+	*/
+	sf::RectangleShape ButtonShape; 
+	/**
+	* @brief Text na tlacitku
+	*/
+	sf::Text ButtonText;
+	/**
+	* @brief Zakladni velikost tlacitka pro obe osy
+	*/
+	sf::Vector2f ButtonSizeDefault;
 
 };
 
 #endif // !_BUTTON_H_
+/*** Konec souboru Button.h ***/
 
 
