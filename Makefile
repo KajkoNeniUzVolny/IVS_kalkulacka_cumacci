@@ -24,7 +24,7 @@ $(exec): $(objs)
 -include $(wildcard *.d)
 
 clean:
-	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests testy/testy.o
+	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests testy/testy.o profiling/profiler.o profiler
 	@rm -rfv output 
 
 run: all
@@ -42,7 +42,9 @@ help:
 	echo -e "Pouziti:\n\t-make [all] - zkompiluje a nalinkuje .cpp a hlavickove soubory a vytovri spustitelny soubor $(exec)\n" && echo -e "\t-make pack - zabali projekt tak, aby byl pripraveny k odevzdani\n" && echo -e "\t-make clean - vycisti repozitar od $(objs), $(deps), $(exec),dokumentace a zip souboru\n" && echo -e "\t-make run - zkompiluje, nalinkuje a spusti\n" && echo -e "\t-make profile - zkompiluje, nalinkuje a spusti program a program pro vypocet smerodajne odchylky s ukazkovym testovacim vstupem\n"
 
 profile: all
-	./profiler < inputs.txt
+	$(MAKE) -C profiling
+	mv profiling/profiler profiler
+	./profiler < profiling/inputs.txt
 	gprof ./$(exec) -p -a -b gmon.out 
 
 test: all
