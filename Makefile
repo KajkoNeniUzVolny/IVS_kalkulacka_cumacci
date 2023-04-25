@@ -24,7 +24,8 @@ $(exec): $(objs)
 -include $(wildcard *.d)
 
 clean:
-	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests
+	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests testy/testy.o
+	@rm -rfv output 
 
 run: all
 	./$(exec)

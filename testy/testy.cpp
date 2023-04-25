@@ -16,6 +16,8 @@ int test(string input, double output) {
 
 	fin >> result;
 
+	system("rm temp.txt");
+
 	cout << "text :" << input << " vysledek :" << result << endl;
 	if (result == output)
 	{
