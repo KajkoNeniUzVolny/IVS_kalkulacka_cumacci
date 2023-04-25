@@ -14,6 +14,8 @@
 using namespace sf;
 using std::vector;
 using std::string;
+using std::cout;
+using std::endl;
 
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
@@ -33,6 +35,16 @@ bool MouseHeld = false;
 
 Font font;
 
+void Help() {
+	cout << "-------------HELP--------KALKULACKA-------------" << endl;
+	cout << "KLIKANIM NA TLACITKA ZPOUSTITE JEDNOTLIVE HODNOTY A MATEMATICKE OPERACE" << endl;
+	cout << "PRI DELENI NULOU JE VYSLEDEK VZDY ROVEN NULE" << endl;
+	cout << "FAKTORIAL LZE ZADAT POUZE SAMOSTATNE JINAK JE VYSLEDEK ROVEN HODNOTE NULA" << endl;
+	cout << "ZNAMENKO ROVNA SE LZE ZADAT KLAVESOU ENTER" << endl;
+	cout << "KALKULACKU LZE UKONCIT KLAVESOU ESC" << endl;
+	cout << "CISLA LZE ZADAVAT POMOCI HORNICH CISEL NA KLAVESNICI" << endl;
+	cout << "------------------------------------------------" << endl;
+}
 
 //call once
 void FirstSetUp()
@@ -127,6 +139,85 @@ void update()
 				if (mathematic::isInteger(result)) CurrentTask = std::to_string(int(result));
 				else CurrentTask = std::to_string(result);
 			}
+			if (Keyboard::isKeyPressed(Keyboard::Num1) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 1;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}else if (Keyboard::isKeyPressed(Keyboard::Num2) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 2;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if(Keyboard::isKeyPressed(Keyboard::Num3) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 3;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num4) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 4;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num5) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 5;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num6) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 6;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num7) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 7;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num8) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 8;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num9) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 9;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num0) && !MouseHeld)
+			{
+				MouseHeld = true;
+				int a = 0;
+				char c = a + '0';
+				CurrentTask.push_back(c);
+				TextOnDisplay.setString(CurrentTask);
+			}
 			if (Mouse::isButtonPressed(Mouse::Left) && !MouseHeld)
 			{
 				MouseHeld = true;
@@ -178,7 +269,10 @@ void update()
 				}
 				TextOnDisplay.setString(CurrentTask);
 			}
-			if (!Mouse::isButtonPressed(Mouse::Left)) {
+			if (!Mouse::isButtonPressed(Mouse::Left) && !Keyboard::isKeyPressed(Keyboard::Num1) && !Keyboard::isKeyPressed(Keyboard::Num2)
+				&& !Keyboard::isKeyPressed(Keyboard::Num3) && !Keyboard::isKeyPressed(Keyboard::Num4) && !Keyboard::isKeyPressed(Keyboard::Num5)
+				&& !Keyboard::isKeyPressed(Keyboard::Num6) && !Keyboard::isKeyPressed(Keyboard::Num7) && !Keyboard::isKeyPressed(Keyboard::Num8)
+				&& !Keyboard::isKeyPressed(Keyboard::Num9) && !Keyboard::isKeyPressed(Keyboard::Num0)) {
 				MouseHeld = false;
 			}
 		}
@@ -209,6 +303,10 @@ int main()
 				if (event.key.code == Keyboard::Escape)
 				{
 					window.close();
+				}
+				if (event.key.code == Keyboard::H)
+				{
+					Help();
 				}
 			}
 		}
