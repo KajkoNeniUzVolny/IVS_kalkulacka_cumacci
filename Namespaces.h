@@ -103,8 +103,8 @@ namespace mathematic {
 		double return_value = value;
 		while (value != 1)
 		{
-			double hold = value--;
-			return_value = return_value * hold;
+			value--;
+			return_value = return_value * value;
 		}
 		return return_value;
 	}
