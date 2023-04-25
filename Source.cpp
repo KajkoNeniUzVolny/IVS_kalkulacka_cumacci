@@ -14,6 +14,8 @@
 using namespace sf;
 using std::vector;
 using std::string;
+using std::cout;
+using std::endl;
 
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
@@ -33,6 +35,15 @@ bool MouseHeld = false;
 
 Font font;
 
+void Help() {
+	cout << "-------------HELP--------KALKULACKA-------------" << endl;
+	cout << "KLIKANIM NA TLACITKA ZPOUSTITE JEDNOTLIVE HODNOTY A MATEMATICKE OPERACE" << endl;
+	cout << "PRI DELENI NULOU JE VYSLEDEK VZDY ROVEN NULE" << endl;
+	cout << "FAKTORIAL LZE ZADAT POUZE SAMOSTATNE JINAK JE VYSLEDEK ROVEN HODNOTE NULA" << endl;
+	cout << "ZNAMENKO ROVNA SE LZE ZADAT KLAVESOU ENTER" << endl;
+	cout << "KALKULACKU LZE UKONCIT KLAVESOU ESC" << endl;
+	cout << "------------------------------------------------" << endl;
+}
 
 //call once
 void FirstSetUp()
@@ -209,6 +220,10 @@ int main()
 				if (event.key.code == Keyboard::Escape)
 				{
 					window.close();
+				}
+				if (event.key.code == Keyboard::H)
+				{
+					Help();
 				}
 			}
 		}
