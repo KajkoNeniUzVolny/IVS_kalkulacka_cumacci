@@ -20,8 +20,52 @@ namespace mathematic {
 		return (c >= '0' && c <= '9');
 	}
 
+	inline double MySqrt(double number, double precision)
+	{
+		double start = 0, end = number;
+		double mid;
 
-	//counting of task
+		double ans  = 0;
+
+		while (start <= end) {
+			mid = (start + end) / 2;
+			if (mid * mid == number) {
+				ans = mid;
+				break;
+			}
+
+			if (mid * mid < number) {
+				start = mid + 1;
+				ans = mid;
+			}
+
+			else {
+				end = mid - 1;
+			}
+		}
+
+		float increment = 0.1;
+		for (int i = 0; i < precision; i++) {
+			while (ans * ans <= number) {
+				ans += increment;
+			}
+
+			ans = ans - increment;
+			increment = increment / 10;
+		}
+		return ans;
+	}
+
+	inline double factorial(double value) {
+		double return_value = value;
+		while (value != 1)
+		{
+			double hold = value--;
+			return_value = return_value * hold;
+		}
+		return return_value;
+	}
+
 	inline double MathCounting(double Value1, double Value2, char Operation)
 	{
 		if (Operation == '*' || Operation == 'x') {
@@ -41,6 +85,14 @@ namespace mathematic {
 		}
 		if (Operation == '^') {
 			return pow(Value1, Value2);
+		}
+		if (Operation == 's')
+		{
+			return MySqrt(Value2, Value1);
+		}
+		if (Operation == '!')
+		{
+			return factorial(Value1);
 		}
 		if (Operation == '%') {
 			if (static_cast<int>(Value2) == 0)
@@ -65,6 +117,7 @@ namespace mathematic {
 	{
 		std::vector<double> Numbers;
 		std::string Operators;
+		bool Factorial_Positive = false;
 		{
 			std::string Helper = "";
 			int position_shift = *task_position;
@@ -82,12 +135,17 @@ namespace mathematic {
 						*task_position = i;
 						goto label;
 					}
-					if (isNumber(task[i]) || task[i] == '.')
+					else if (isNumber(task[i]) || task[i] == '.')
 					{
 						Helper.push_back(task[i]);
 					}
+					else if (task[i] == '!')
+					{
+						Factorial_Positive = true;
+						Operators.push_back(task[i]);
+					}
 					else if (task[i] == '+' || task[i] == '-' || task[i] == '/' || task[i] == ':' || task[i] == '*' ||
-						task[i] == 'x' || task[i] == '^' || task[i] == '%')
+						task[i] == 'x' || task[i] == '^' || task[i] == '%' || task[i] == 's')
 					{
 						Operators.push_back(task[i]);
 						if (Helper != "")
@@ -142,6 +200,7 @@ namespace mathematic {
 	{
 		std::vector<double> Numbers;
 		std::string Operators;
+		bool Factorial_Positive = false;
 		{
 			std::string Helpere = "";
 
@@ -157,7 +216,7 @@ namespace mathematic {
 						Helpere.push_back(task[i]);
 					}
 					else if (task[i] == '+' || task[i] == '-' || task[i] == '/' || task[i] == ':' || task[i] == '*' ||
-						task[i] == 'x' || task[i] == '^' || task[i] == '%')
+						task[i] == 'x' || task[i] == '^' || task[i] == '%' || task[i] == 's' || task[i] == '!')
 					{
 						Operators.push_back(task[i]);
 						if (Helpere != "")
@@ -166,8 +225,23 @@ namespace mathematic {
 							Helpere = "";
 						}
 					}
+					if (task[i] == '!')
+					{
+						Factorial_Positive = true;
+						Operators.push_back(task[i]);
+					}
 				}
 			Numbers.push_back(StringToNumber(Helpere));
+			if (Factorial_Positive)
+			{
+				if (Numbers.size() != 1) {
+					return 0;
+				}
+				else
+				{
+					Numbers.push_back(NULL);
+				}
+			}
 		}
 		do
 		{
@@ -179,8 +253,8 @@ namespace mathematic {
 
 			for (size_t i = 0; i < Operators.length(); i++)
 			{
-				if (Operators[i] == '^' || Operators[i] == '%') {
-					MathematicalOperations = "^%";
+				if (Operators[i] == '^' || Operators[i] == '%' || Operators[i] == 's' || Operators[i] == '!') {
+					MathematicalOperations = "^%s!";
 					break;
 				}
 				if (Operators[i] == '*' || Operators[i] == '/' || Operators[i] == ':' || Operators[i] == 'x') {
@@ -203,7 +277,6 @@ namespace mathematic {
 						break;
 					}
 			}
-
 		} while (!Operators.empty());
 		return Numbers[0];
 	}

@@ -7,8 +7,9 @@
 #include<sstream>
 #include"Namespaces.h"
 
-#define BUTTONCOUNT 22
+#define BUTTONCOUNT 24
 #define FONT_ON_DISPLAY_SIZE 40
+#define CHARACTER_SIZE 65
 
 using namespace sf;
 using std::vector;
@@ -16,7 +17,7 @@ using std::string;
 
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
-char Buttonchars[BUTTONCOUNT] = { 'C', '<', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
+char Buttonchars[BUTTONCOUNT] = { 'C', '<', '!', 's', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
 const Color MouseOnButtonColour = Color::Color(110, 110, 110, 50);
 RectangleShape HoverShape;
 
@@ -29,7 +30,6 @@ Text TextOnDisplay;
 string PrevTask = "";
 
 bool MouseHeld = false;
-int CharSize = 45;
 
 Font font;
 
@@ -50,12 +50,8 @@ void FirstSetUp()
 
 		if (Buttonchars[i] == 'C' || Buttonchars[i] == '<')
 		{
-			XNumber = 2;
 			ButtonColor = Color::Color(25, 25, 25);
 		}
-		/*if (Buttonchars[i] == '0') {
-			XNumber = 3;
-		}*/
 		Buttons.push_back(RectangleShape({ ButtonSize.x * XNumber, ButtonSize.y }));
 		Buttons[i].setFillColor(ButtonColor);
 
@@ -85,7 +81,6 @@ void DisplayALL()
 		window.draw(Buttons[i]);
 		Text ButtonChar;
 		ButtonChar.setCharacterSize(Buttons[i].getSize().x / 6);
-		if (Buttonchars[i] == '0') ButtonChar.setCharacterSize(Buttons[i].getSize().x / 12);
 		ButtonChar.setFont(font);
 		ButtonChar.setString(Buttonchars[i]);
 		ButtonChar.setPosition(Buttons[i].getPosition().x + Buttons[i].getGlobalBounds().width / 2 - ButtonChar.getGlobalBounds().width,
@@ -102,7 +97,7 @@ void DisplayALL()
 
 	Text PreviousText;
 	PreviousText.setFont(font);
-	PreviousText.setCharacterSize(CharSize - 10);
+	PreviousText.setCharacterSize(CHARACTER_SIZE - 10);
 	PreviousText.setString(PrevTask);
 	PreviousText.setOutlineThickness(2.f);
 	PreviousText.setOutlineColor(Color::Black);
@@ -123,7 +118,15 @@ void update()
 			HoverShape.setSize({ Buttons[i].getSize() });
 			HoverShape.setFillColor(MouseOnButtonColour);
 			HoverShape.setPosition(Buttons[i].getPosition());
+			if (Keyboard::isKeyPressed(Keyboard::Enter))
+			{
+				PrevTask = CurrentTask;
 
+				double result = mathematic::StringToCount(CurrentTask);
+
+				if (mathematic::isInteger(result)) CurrentTask = std::to_string(int(result));
+				else CurrentTask = std::to_string(result);
+			}
 			if (Mouse::isButtonPressed(Mouse::Left) && !MouseHeld)
 			{
 				MouseHeld = true;
