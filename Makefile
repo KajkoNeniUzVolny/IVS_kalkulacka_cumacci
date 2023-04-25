@@ -24,7 +24,7 @@ $(exec): $(objs)
 -include $(wildcard *.d)
 
 clean:
-	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out
+	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests
 
 run: all
 	./$(exec)
@@ -44,3 +44,7 @@ profile: all
 	./profiler < inputs.txt
 	gprof ./$(exec) -p -a -b gmon.out 
 
+test: all
+	$(MAKE) -C testy
+	mv testy/tests tests
+	./tests
