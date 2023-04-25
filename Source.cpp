@@ -7,7 +7,7 @@
 #include<sstream>
 #include"Namespaces.h"
 
-#define BUTTONCOUNT 22
+#define BUTTONCOUNT 24
 #define FONT_ON_DISPLAY_SIZE 40
 #define CHARACTER_SIZE 65
 
@@ -17,7 +17,7 @@ using std::string;
 
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
-char Buttonchars[BUTTONCOUNT] = { 'C', '<', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
+char Buttonchars[BUTTONCOUNT] = { 'C', '<', '!', 's', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
 const Color MouseOnButtonColour = Color::Color(110, 110, 110, 50);
 RectangleShape HoverShape;
 
@@ -50,7 +50,6 @@ void FirstSetUp()
 
 		if (Buttonchars[i] == 'C' || Buttonchars[i] == '<')
 		{
-			XNumber = 2;
 			ButtonColor = Color::Color(25, 25, 25);
 		}
 		Buttons.push_back(RectangleShape({ ButtonSize.x * XNumber, ButtonSize.y }));
