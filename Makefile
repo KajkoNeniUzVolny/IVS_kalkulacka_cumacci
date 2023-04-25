@@ -31,8 +31,8 @@ run: all
 
 doc:
 	doxygen Doxyfile
-	$(MAKE) -C latex
-	cp latex/refman.pdf $(documentation_name).pdf
+	$(MAKE) -C output/latex
+	cp output/latex/refman.pdf $(documentation_name).pdf
 
 pack: doc
 	zip $(zipname) $(to_zip) 
