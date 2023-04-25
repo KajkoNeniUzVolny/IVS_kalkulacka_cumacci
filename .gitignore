@@ -1,0 +1,8 @@
+**/*.o
+**/*.d
+*.out
+kaukulacka_pro_cumacky
+profiler
+tests
+/output/*
+*.zip

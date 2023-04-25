@@ -24,7 +24,7 @@ $(exec): $(objs)
 -include $(wildcard *.d)
 
 clean:
-	@rm -fv $(objs) $(deps) $(exec) $(documentation_name).pdf $(zipname).zip gmon.out tests testy/testy.o profiling/profiler.o profiler
+	@rm -fv $(objs) $(deps) $(exec) $(zipname).zip gmon.out tests testy/testy.o profiling/profiler.o profiler
 	@rm -rfv output 
 
 run: all
@@ -33,7 +33,7 @@ run: all
 doc:
 	doxygen Doxyfile
 	$(MAKE) -C output/latex
-	cp output/latex/refman.pdf $(documentation_name).pdf
+	cp output/latex/refman.pdf dokumentacia/$(documentation_name).pdf
 
 pack: doc
 	zip $(zipname) $(to_zip) 
