@@ -4,6 +4,7 @@
 #include<vector>
 #include<string>
 #include<sstream>
+#include<cmath>
 
 #define AllMathSymbols "*/:x^%^-+"
 
@@ -73,7 +74,7 @@ namespace mathematic {
 		}
 		if (Operation == ':' || Operation == '/') {
 			if (Value2 == 0) {
-				return NULL;
+				return 0;
 			}
 			return Value1 / Value2;
 		}
@@ -242,7 +243,7 @@ namespace mathematic {
 				}
 				else
 				{
-					Numbers.push_back(NULL);
+					Numbers.push_back(0);
 				}
 			}
 		}
