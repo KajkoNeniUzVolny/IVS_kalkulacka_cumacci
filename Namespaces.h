@@ -101,6 +101,9 @@ namespace mathematic {
 			}
 			return  static_cast<int>(Value1) % static_cast<int>(Value2);
 		}
+		else {
+			abort();
+		}
 	}
 
 	inline double StringToNumber(std::string Num)

@@ -10,6 +10,9 @@
 #define BUTTONCOUNT 24
 #define FONT_ON_DISPLAY_SIZE 40
 #define CHARACTER_SIZE 65
+#define pause getchar();
+
+//#define _PROFILER_
 
 using namespace sf;
 using std::vector;
@@ -17,10 +20,12 @@ using std::string;
 using std::cout;
 using std::endl;
 
+bool CallOnce = true;
+
 RenderWindow window(VideoMode(600, 800), "Calculator", Style::Close | Style::Titlebar);
 
 char Buttonchars[BUTTONCOUNT] = { 'C', '<', '!', 's', '.', '^', '%', ':', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0','(', ')', '='};
-const Color MouseOnButtonColour = Color::Color(110, 110, 110, 50);
+const Color MouseOnButtonColour = Color(110, 110, 110, 50);
 RectangleShape HoverShape;
 
 const Vector2f ButtonSize = { 150.f, 100.f };
@@ -58,11 +63,11 @@ void FirstSetUp()
 	for (size_t i = 0; i < BUTTONCOUNT; i++)
 	{
 		int XNumber = 1;
-		Color ButtonColor = Color::Color(16, 16, 16);
+		Color ButtonColor = Color(16, 16, 16);
 
 		if (Buttonchars[i] == 'C' || Buttonchars[i] == '<')
 		{
-			ButtonColor = Color::Color(25, 25, 25);
+			ButtonColor = Color(25, 25, 25);
 		}
 		Buttons.push_back(RectangleShape({ ButtonSize.x * XNumber, ButtonSize.y }));
 		Buttons[i].setFillColor(ButtonColor);
@@ -76,7 +81,7 @@ void FirstSetUp()
 			Buttons[i].setPosition(Buttons[i - 1].getPosition().x + Buttons[i - 1].getSize().x, YNumber * 100.f);
 		}
 		Buttons[i].setOutlineThickness(3.f);
-		Buttons[i].setOutlineColor(Color::Color(37, 37, 37));
+		Buttons[i].setOutlineColor(Color(37, 37, 37));
 
 		if (i >= 0 && Buttons[i].getPosition().x + Buttons[i].getSize().x >= window.getSize().x)
 		{
@@ -118,8 +123,14 @@ void DisplayALL()
 	window.draw(PreviousText);
 }
 
-void update()
+void update(char* argv[])
 {
+	if (CallOnce)
+	{
+		CallOnce = false;
+		CurrentTask = *argv;
+		TextOnDisplay.setString(CurrentTask);
+	}
 	bool HoveredPositiv = false;
 
 	for (size_t i = 0; i < Buttons.size(); i++)
@@ -172,7 +183,7 @@ void update()
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::Num5) && !MouseHeld)
 			{
-				MouseHeld = true;
+				MouseHeld = true; 
 				int a = 5;
 				char c = a + '0';
 				CurrentTask.push_back(c);
@@ -282,8 +293,9 @@ void update()
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+
     window.setVerticalSyncEnabled(true);
 	font.loadFromFile("FontCalculator.ttf");
 
@@ -311,8 +323,13 @@ int main()
 			}
 		}
 
+#ifndef _PROFILER_
+		update(&argv[1]);
+#else
+		char argv = "";
+		update(&argv);
+#endif // !_PROFILER_
 
-		update();
 
 		window.clear(Color(45,45,45));
 
@@ -320,6 +337,10 @@ int main()
 
 		window.display();
 	}
+
+#ifndef _PROFILER_
+	pause;
+#endif // !_PROFILER_
 
     return 0;
 }
