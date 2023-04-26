@@ -2,9 +2,9 @@
 
 exec := kaukulacka_pro_cumacky
 
-to_zip := *.h *.cpp hodnoceni.txt $(documentation_name).pdf odevzdani.txt 
+to_zip := *.h *.cpp dokumentacia testy profiling README.md FontCalculator.ttf Doxyfile Makefile LICENSE 
 
-zipname := xslobo08_xlauer00_xforte03.zip 
+zipname := xslobo08_xlauer00_xforte03_xperko00
 
 documentation_name := documentation
 
@@ -35,8 +35,11 @@ doc:
 	$(MAKE) -C output/latex
 	cp output/latex/refman.pdf dokumentacia/$(documentation_name).pdf
 
-pack: doc
-	zip $(zipname) $(to_zip) 
+pack: all
+	mkdir $(zipname)
+	cp -r $(to_zip) $(zipname)
+	zip -r $(zipname).zip $(zipname) 
+	rm -rfv $(zipname)
 
 help:
 	echo -e "Pouziti:\n\t-make [all] - zkompiluje a nalinkuje .cpp a hlavickove soubory a vytovri spustitelny soubor $(exec)\n" && echo -e "\t-make pack - zabali projekt tak, aby byl pripraveny k odevzdani\n" && echo -e "\t-make clean - vycisti repozitar od $(objs), $(deps), $(exec),dokumentace a zip souboru\n" && echo -e "\t-make run - zkompiluje, nalinkuje a spusti\n" && echo -e "\t-make profile - zkompiluje, nalinkuje a spusti program a program pro vypocet smerodajne odchylky s ukazkovym testovacim vstupem\n"
