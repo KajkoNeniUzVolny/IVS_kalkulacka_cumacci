@@ -1,0 +1,4 @@
+xslobo08 100 (dokumentace, matematicke operace, profiling)
+xlauer00 100 (graficka cast kalkulacky, testy, instalatory)
+xforte03 100 (dokumentace, matematicke operace, testy)
+xperko00 0 (nic)
