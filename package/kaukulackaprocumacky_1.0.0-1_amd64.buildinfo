@@ -1,0 +1,18 @@
+Format: 1.0
+Source: kaukulackaprocumacky
+Binary: kaukulackaprocumacky
+Architecture: amd64
+Version: 1.0.0-1
+Checksums-Md5:
+ 80adca5a590ae6889472ad022a7779af 2668 kaukulackaprocumacky_1.0.0-1_amd64.deb
+Checksums-Sha1:
+ 85eaf6af5f84b3c33e743783c9e2fd0b41dd5f80 2668 kaukulackaprocumacky_1.0.0-1_amd64.deb
+Checksums-Sha256:
+ 0b1e416e1eb9602958f21bc497c37f20db787d44be28df75ecc4db146a30d2b5 2668 kaukulackaprocumacky_1.0.0-1_amd64.deb
+Build-Origin: ArchLinux
+Build-Architecture: amd64
+Build-Date: Wed, 26 Apr 2023 03:06:06 +0200
+Environment:
+ DEB_BUILD_OPTIONS="parallel=16"
+ LANG="C.UTF-8"
+ SOURCE_DATE_EPOCH="1682469480"

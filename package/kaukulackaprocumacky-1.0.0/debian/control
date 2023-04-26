@@ -1,0 +1,15 @@
+Source: kaukulackaprocumacky
+Section: unknown
+Priority: optional
+Maintainer: Pavol Sloboda <pavo.sloboda02@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Browser: https://salsa.debian.org/debian/kaukulackaprocumacky
+#Vcs-Git: https://salsa.debian.org/debian/kaukulackaprocumacky.git
+Rules-Requires-Root: no
+
+Package: kaukulackaprocumacky
+Architecture: any
+Depends: gcc-8 (>=8.3.0-1~)
+Description: "jednoducha kaukulacka IVS VUTBR"

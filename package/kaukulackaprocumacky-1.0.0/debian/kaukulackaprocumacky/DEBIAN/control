@@ -1,0 +1,10 @@
+Package: kaukulackaprocumacky
+Version: 1.0.0-1
+Architecture: amd64
+Maintainer: Pavol Sloboda <pavo.sloboda02@gmail.com>
+Installed-Size: 12
+Depends: gcc-8 (>= 8.3.0-1~)
+Section: unknown
+Priority: optional
+Homepage: <insert the upstream URL, if relevant>
+Description: "jednoducha kaukulacka IVS VUTBR"
